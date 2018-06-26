@@ -268,9 +268,9 @@ void free_proxy_client(struct proxy_client *client)
 {
 	if (client->local_ip) free(client->local_ip);
 	
-	free_base_config(client->bconf);
+	if (client->bconf) free_base_config(client->bconf);
 	
-	evtimer_del(client->ev_timeout);
+	if (client->ev_timeout) evtimer_del(client->ev_timeout);
 }
 
 void del_proxy_client(struct proxy_client *client)
